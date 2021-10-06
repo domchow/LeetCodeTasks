@@ -11,6 +11,7 @@ import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.MethodSource
 import java.util.stream.Stream
+import kotlin.reflect.typeOf
 
 @Suppress("UnusedPrivateMember")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -124,6 +125,17 @@ class LeetCodeTest {
     fun `1165 Single-Row Keyboard`(testData: TestData) {
         val given = testData.given as Pair<*, *>
         assertEquals(testData.expected as Int, calculateTime(given.first as String, given.second as String))
+    }
+
+    @Test
+    fun `359 Logger Rate Limiter`() {
+        val input = mapOf(1 to "foo", 2 to "bar", 3 to "foo", 8 to "bar", 10 to "foo", 11 to "foo")
+        val loggerService = LoggerService()
+        val result = input.map { loggerService.shouldPrintMessage(it.key, it.value) }.toBooleanArray()
+        assertArrayEquals(
+            booleanArrayOf(true, true, false, false, false, true),
+            result
+        )
     }
 }
 
